@@ -3,7 +3,8 @@ import { TodoContext } from "../../context/TodoContext";
 
 // uncontrolled component
 const TodoForm = () => {
-	const context = useContext(TodoContext);
+	//const context = useContext(TodoContext);
+	const { onSubmitTodo } = useContext(TodoContext);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -15,7 +16,7 @@ const TodoForm = () => {
 			return;
 		}
 
-		context.onSubmitTodo({
+		onSubmitTodo({
 			id: crypto.randomUUID(),
 			title,
 			content,
