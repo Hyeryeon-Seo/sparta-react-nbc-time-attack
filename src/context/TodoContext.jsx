@@ -28,7 +28,7 @@ const TodoProvider = ({ children }) => {
 		// HINT: `id`와 `todo.id`가 일치하는 아이템의 completed 상태를 토글
 		setTodos((prevTodos) =>
 			prevTodos.map((todo) => {
-				// 삼항연산자 적용X -
+				// // 삼항연산자 적용X -
 				//todo.id === id ? { ...todo, completed: !todo.completed } : todo;
 				if (todo.id === id) {
 					return { ...todo, completed: !todo.completed };
