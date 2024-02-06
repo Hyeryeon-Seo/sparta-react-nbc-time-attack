@@ -1,6 +1,6 @@
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ headTitle, todos, onDeleteTodoItem, onToggleTodoItem }) => {
+const TodoList = ({ headTitle, todos }) => {
 	return (
 		<section>
 			<h2>{headTitle}</h2>
@@ -11,14 +11,7 @@ const TodoList = ({ headTitle, todos, onDeleteTodoItem, onToggleTodoItem }) => {
 					// NOTE: map 메서드를 사용하여 `TodoItem` 컴포넌트 렌더링
 					// HINT: `TodoItem` 컴포넌트에는 `todo`, `onDeleteTodoItem`, `onToggleTodoItem` props를 전달
 					todos.map((todo) => {
-						return (
-							<TodoItem
-								todo={todo}
-								key={todo.id}
-								onDeleteTodoItem={onDeleteTodoItem}
-								onToggleTodoItem={onToggleTodoItem}
-							/>
-						);
+						return <TodoItem key={todo.id} todo={todo} />;
 					})
 				}
 			</ul>

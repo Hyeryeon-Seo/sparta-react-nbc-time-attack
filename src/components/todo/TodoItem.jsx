@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { TodoCardItem } from "../../style/TodoStyle";
+import { TodoContext } from "../../context/TodoContext";
 
-const TodoItem = ({ todo, onDeleteTodoItem, onToggleTodoItem }) => {
+const TodoItem = ({ todo }) => {
+	const context = useContext(TodoContext);
 	const { id, title, content, completed, limit } = todo;
 
 	const formattedlimit = new Date(limit).toLocaleDateString("ko-KR", {
@@ -17,8 +20,8 @@ const TodoItem = ({ todo, onDeleteTodoItem, onToggleTodoItem }) => {
 				<p>{content}</p>
 				<time>{formattedlimit}</time>
 				<div>
-					<button onClick={() => onDeleteTodoItem(id)}>삭제</button>
-					<button onClick={() => onToggleTodoItem(id)}>
+					<button onClick={() => context.onDeleteTodoItem(id)}>삭제</button>
+					<button onClick={() => context.onToggleTodoItem(id)}>
 						{completed ? "취소" : "완료"}
 					</button>
 				</div>

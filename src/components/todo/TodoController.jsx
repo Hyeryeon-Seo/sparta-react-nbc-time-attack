@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import { defaultTodos } from "../../static/todos";
+import { TodoContext } from "../../context/TodoContext";
 
 const TodoController = () => {
 	const [todos, setTodos] = useState(defaultTodos);
@@ -26,7 +27,8 @@ const TodoController = () => {
 		// HINT: `id`와 `todo.id`가 일치하는 아이템의 completed 상태를 토글
 		setTodos((prevTodos) =>
 			prevTodos.map((todo) => {
-				// 삼항연산자 적용X - todo.id === id ? { ...todo, completed: !todo.completed } : todo;
+				// 삼항연산자 적용X -
+				//todo.id === id ? { ...todo, completed: !todo.completed } : todo;
 				if (todo.id === id) {
 					return { ...todo, completed: !todo.completed };
 				}
@@ -63,27 +65,25 @@ const TodoController = () => {
 	const doneTodos = todos.filter((todo) => todo.completed);
 
 	return (
-		<main>
-			<TodoForm onSubmitTodo={onSubmitTodo} />
-			<div>
-				<select onChange={onChangeSortOrder} value={sortOrder}>
-					<option value="asc">오름차순</option>
-					<option value="desc">내림차순</option>
-				</select>
-			</div>
-			<TodoList
-				headTitle="Working!"
-				todos={workingTodos}
-				onDeleteTodoItem={onDeleteTodoItem}
-				onToggleTodoItem={onToggleTodoItem}
-			/>
-			<TodoList
-				headTitle="Done!"
-				todos={doneTodos}
-				onDeleteTodoItem={onDeleteTodoItem}
-				onToggleTodoItem={onToggleTodoItem}
-			/>
-		</main>
+		<TodoContext.Provider
+			value={{
+				onSubmitTodo,
+				onDeleteTodoItem,
+				onToggleTodoItem,
+			}}
+		>
+			<main>
+				<TodoForm />
+				<div>
+					<select onChange={onChangeSortOrder} value={sortOrder}>
+						<option value="asc">오름차순</option>
+						<option value="desc">내림차순</option>
+					</select>
+				</div>
+				<TodoList headTitle="Working!" todos={workingTodos} />
+				<TodoList headTitle="Done!" todos={doneTodos} />
+			</main>
+		</TodoContext.Provider>
 	);
 };
 
